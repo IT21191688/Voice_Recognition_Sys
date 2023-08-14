@@ -1,11 +1,11 @@
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import useClipboard from "react-use-clipboard";
-import { createJavaScriptFunction, helloworld, createVaribleJs } from '../datamodules/DataCollections';
+import { createJavaScriptFunction, createVaribleJs, createClassJs, commentJs, constantJs, objectJs, initializeJs, printJs } from '../datamodules/DataCollections';
 import { useState, useEffect } from "react";
 
 export default function VoiceGet() {
 
-
+    const [resetKey, setResetKey] = useState(0);
     const [textToCopy, setTextToCopy] = useState();
     const [isCopied, setCopied] = useClipboard(textToCopy, {
         successDuration: 5000
@@ -17,7 +17,8 @@ export default function VoiceGet() {
     const [codeEditor, setCodeEditor] = useState(false);
 
     const [isListening, setIsListening] = useState(false);
-    const { transcript, browserSupportsSpeechRecognition } = useSpeechRecognition();
+    const { transcript, browserSupportsSpeechRecognition, resetTranscript } = useSpeechRecognition();
+
 
     useEffect(() => {
 
@@ -29,23 +30,76 @@ export default function VoiceGet() {
                     setIsListening(false)
                 }
             }
-            if (transcript.toLowerCase().startsWith('print hello world')) {
-                setKeywords(helloworld());
-                setIsListening(false)
-            }
-
-            if (transcript.toLowerCase().startsWith('declare a variable')) {
+            else if (transcript.toLowerCase().startsWith('declare a variable')) {
                 const varibleName = transcript.toLowerCase().replace('declare a variable', '').trim();
 
                 if (varibleName) {
                     setKeywords(createVaribleJs(varibleName))
                     setIsListening(false)
                 }
+            }
+            else if (transcript.toLowerCase().startsWith('constant')) {
+                const varibleName = transcript.toLowerCase().replace('constant', '').trim();
 
+                if (varibleName) {
+                    setKeywords(constantJs(varibleName))
+                    setIsListening(false)
+                }
+            }
+            else if (transcript.toLowerCase().startsWith('create class')) {
+                const varibleName = transcript.toLowerCase().replace('create class', '').trim();
+                if (varibleName) {
+                    setKeywords(createClassJs(varibleName))
+                    setIsListening(false)
+                }
+
+            }
+            else if (transcript.toLowerCase().startsWith('comment')) {
+                const varibleName = transcript.toLowerCase().replace('comment', '').trim();
+                if (varibleName) {
+                    setKeywords(commentJs(varibleName))
+                    setIsListening(false)
+                }
+
+            }
+            else if (transcript.toLowerCase().startsWith('create object')) {
+                const varibleName = transcript.toLowerCase().replace('create object', '').trim();
+                if (varibleName) {
+                    setKeywords(objectJs(varibleName))
+                    setIsListening(false)
+                }
+
+            }
+            else if (transcript.toLowerCase().startsWith('initialise')) {
+                const varibleName = transcript.toLowerCase().replace('initialise', '').trim();
+                if (varibleName) {
+                    setKeywords(initializeJs(varibleName))
+                    setIsListening(false)
+                }
+
+            }
+            else if (transcript.toLowerCase().startsWith('print')) {
+                const varibleName = transcript.toLowerCase().replace('print', '').trim();
+                if (varibleName) {
+                    setKeywords(printJs(varibleName))
+                    setIsListening(false)
+                }
+
+            }
+
+
+            else {
+                setKeywords('Unrecognized command');
+                setIsListening(false);
             }
         }
     }, [transcript]);
 
+    const rejectCode = () => {
+        setTextToCopy('');
+        setKeywords('');
+        resetTranscript();
+    }
 
     const startListening = () => {
         SpeechRecognition.startListening({ continuous: true, language: 'en-IN' })
@@ -85,12 +139,16 @@ export default function VoiceGet() {
                 <button onClick={setCopied}>
                     Apply Code
                 </button>
+                <button onClick={rejectCode}>
+                    Clear
+                </button>
             </div>
 
             <div className="btn-style">
                 <button onClick={setCodeEditor}>
                     {isCopied ? 'Copied!' : 'Copy to clipboard'}
                 </button>
+
                 <button
                     onClick={isListening ? stopListening : startListening}
                     style={{ backgroundColor: isListening ? 'red' : 'green' }}
