@@ -255,10 +255,10 @@ function Editor(props) {
 
 
             <div className={`container col-md-3 ${Style['voice-guide-container']}`}>
-                <h2 className={Style['voice-guide-heading']}>Voice Command Guide</h2>
-                <div className={`${Style['voice-guide-page']} ${currentPage === 0 ? Style.active : ''}`}>
+                <h2 className={`mb-4 ${Style['voice-guide-heading']}`}>Voice Command Guide</h2>
+                <div className={`${Style['voice-guide-page']} ${currentPage === 0 ? 'd-block' : 'd-none'}`}>
                     <p className={Style['voice-guide-text']}>Follow these steps to use the voice command interface:</p>
-                    <ol className={Style['voice-guide-list']}>
+                    <ol className={`mb-5 ${Style['voice-guide-list']}`}>
                         <li>Select a programming language from the dropdown.</li>
                         <li>Click the "Start Listening" button to activate voice recognition.</li>
                         <li>Speak one of the supported commands, like "create function" or "declare variable".</li>
@@ -268,8 +268,9 @@ function Editor(props) {
                         <li>Click the "Run Code" button to execute the code and see the output.</li>
                     </ol>
                 </div>
-                <div className={`${Style['voice-guide-page']} ${currentPage === 1 ? Style.active : ''}`}>
-                    <ul className={Style['voice-guide-list']}>
+                {/* ... Other content for Page 1 */}
+                <div className={`${Style['voice-guide-page']} ${currentPage === 1 ? 'd-block' : 'd-none'}`}>
+                    <ul className={`mb-5 ${Style['voice-guide-list']}`}>
                         <li><strong>"create function":</strong> Generates a function template.</li>
                         <li><strong>"declare variable":</strong> Generates a variable declaration.</li>
                         {/* Add more examples here */}
@@ -277,8 +278,9 @@ function Editor(props) {
                     <p className={Style['voice-guide-text']}>Here are some example commands:</p>
                     {/* ... Other content for Page 2 */}
                 </div>
-                <div className={`${Style['voice-guide-page']} ${currentPage === 2 ? Style.active : ''}`}>
-                    <ul className={Style['voice-guide-list']}>
+                {/* ... Other content for Page 2 */}
+                <div className={`${Style['voice-guide-page']} ${currentPage === 2 ? 'd-block' : 'd-none'}`}>
+                    <ul className={`mb-5 ${Style['voice-guide-list']}`}>
                         <li><strong>"create loop with condition i less than 10":</strong> Generates a for loop with the specified condition.</li>
                         <li><strong>"create if else statement with condition x greater than 5":</strong> Generates an if-else statement with the specified condition.</li>
                         <li><strong>"print variableName":</strong> Generates a console log statement to print the specified variable.</li>
@@ -288,11 +290,14 @@ function Editor(props) {
                         <li><strong>"comment":</strong> Generates a comment.</li>
                         {/* Add more examples here */}
                     </ul>
-                    <h4 className={Style['voice-guide-subheading']}>Example Voice Commands:</h4>
+                    <h4 className={`mb-4 ${Style['voice-guide-subheading']}`}>Example Voice Commands:</h4>
                     {/* ... Other content for Page 3 */}
                 </div>
-                <button onClick={prevPage}>Previous</button>
-                <button onClick={nextPage}>Next</button>
+                {/* ... Other content for Page 3 */}
+                <div className="text-center">
+                    <button className="btn btn-primary me-2" onClick={prevPage}>Previous</button>
+                    <button className="btn btn-primary" onClick={nextPage}>Next</button>
+                </div>
             </div>
             <div className="container col-md-6" style={{ paddingRight: '5px' }}>
                 <div className={`${Style.codeeditorwrapper}`}>
