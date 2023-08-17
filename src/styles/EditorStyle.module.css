@@ -1,8 +1,4 @@
-/* main.webapp */
 
-/* Apply global styles if needed */
-
-/* Styles for the code editor wrapper */
 .codeeditorwrapper {
     border: 1px solid lightgray;
     border-radius: 5px;
@@ -95,4 +91,48 @@
     .codeeditorwrapper #code-editor .CodeMirror {
         height: 300px;
     }
+}
+
+
+
+
+/* voice guide css*/
+
+/* VoiceCommandGuide.module.css */
+
+.voice-guide-container {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.voice-guide-heading {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.voice-guide-text {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.voice-guide-list {
+    font-size: 14px;
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.voice-guide-subheading {
+    font-size: 18px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.voice-guide-page {
+    display: none;
+}
+
+.active {
+    display: block;
 }

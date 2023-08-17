@@ -42,6 +42,21 @@ function Editor(props) {
     const [codeEditor, setCodeEditor] = useState(false);
 
 
+    const [currentPage, setCurrentPage] = useState(0);
+    const totalPages = 3; // Number of pages in the guide
+
+    const nextPage = () => {
+        if (currentPage < totalPages - 1) {
+            alert(currentPage)
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const prevPage = () => {
+        if (currentPage > 0) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
 
     const languageCommandHandlers = {
         'Javascript': {
@@ -237,13 +252,52 @@ function Editor(props) {
 
     return (
         <div className='row mt-5'>
-            <div className="container col-md-3" style={{ width: '20%', float: 'left', paddingRight: '5px' }} >
 
+
+            <div className={`container col-md-3 ${Style['voice-guide-container']}`}>
+                <h2 className={Style['voice-guide-heading']}>Voice Command Guide</h2>
+                <div className={`${Style['voice-guide-page']} ${currentPage === 0 ? Style.active : ''}`}>
+                    <p className={Style['voice-guide-text']}>Follow these steps to use the voice command interface:</p>
+                    <ol className={Style['voice-guide-list']}>
+                        <li>Select a programming language from the dropdown.</li>
+                        <li>Click the "Start Listening" button to activate voice recognition.</li>
+                        <li>Speak one of the supported commands, like "create function" or "declare variable".</li>
+                        <li>Your spoken command will be processed and code snippets will be generated.</li>
+                        <li>Generated code will appear in the editor. You can manually edit it if needed.</li>
+                        <li>Click the "Apply Code" button to insert the generated code into the editor.</li>
+                        <li>Click the "Run Code" button to execute the code and see the output.</li>
+                    </ol>
+                </div>
+                <div className={`${Style['voice-guide-page']} ${currentPage === 1 ? Style.active : ''}`}>
+                    <ul className={Style['voice-guide-list']}>
+                        <li><strong>"create function":</strong> Generates a function template.</li>
+                        <li><strong>"declare variable":</strong> Generates a variable declaration.</li>
+                        {/* Add more examples here */}
+                    </ul>
+                    <p className={Style['voice-guide-text']}>Here are some example commands:</p>
+                    {/* ... Other content for Page 2 */}
+                </div>
+                <div className={`${Style['voice-guide-page']} ${currentPage === 2 ? Style.active : ''}`}>
+                    <ul className={Style['voice-guide-list']}>
+                        <li><strong>"create loop with condition i less than 10":</strong> Generates a for loop with the specified condition.</li>
+                        <li><strong>"create if else statement with condition x greater than 5":</strong> Generates an if-else statement with the specified condition.</li>
+                        <li><strong>"print variableName":</strong> Generates a console log statement to print the specified variable.</li>
+                        <li><strong>"create constant":</strong> Generates a constant declaration.</li>
+                        <li><strong>"create object with attributes name and age":</strong> Generates an object declaration with attributes.</li>
+                        <li><strong>"initialize variableName with Number":</strong> Generates variable initialization with a specified type.</li>
+                        <li><strong>"comment":</strong> Generates a comment.</li>
+                        {/* Add more examples here */}
+                    </ul>
+                    <h4 className={Style['voice-guide-subheading']}>Example Voice Commands:</h4>
+                    {/* ... Other content for Page 3 */}
+                </div>
+                <button onClick={prevPage}>Previous</button>
+                <button onClick={nextPage}>Next</button>
             </div>
             <div className="container col-md-6" style={{ paddingRight: '5px' }}>
                 <div className={`${Style.codeeditorwrapper}`}>
                     <div className={Style.filename}>
-                        MyLittleDarkAge.js
+                        My Code Editor
                         <span
                             onClick={() => CodeMirrorEditor.runCode()}
                             title="Click here to run this file"
