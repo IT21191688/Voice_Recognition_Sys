@@ -86,14 +86,23 @@ export function printJs(varibleName) {
 
 }
 
-
 export function createForLoopJs(condition) {
-    const loopText = `
-        for (${condition}) {
-            // Your loop body here
+    const comparisonOperators = ['<', '>', '<=', '>='];
+
+    for (const operator of comparisonOperators) {
+        if (condition.includes(operator)) {
+            const conditionText = condition.substring(0, condition.indexOf(operator)).trim();
+
+            const loopText = `
+                for (var ${conditionText}=0; ${condition}; ${conditionText}++) {
+                    // Your loop body here
+                }
+            `;
+            return loopText;
         }
-    `;
-    return loopText;
+    }
+
+    return '';
 }
 
 export function createIfElseJs(condition) {
