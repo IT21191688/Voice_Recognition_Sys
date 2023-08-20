@@ -20,6 +20,15 @@ export function createVaribleJs(varibleName) {
     return functionText;
 
 }
+
+export function callFunctionJs(varibleName) {
+    // Your function implementation
+    const functionText = `
+        ${varibleName}();
+    `;
+    return functionText;
+
+}
 export function createClassJs(varibleName) {
     // Your function implementation
     const functionText = `
@@ -85,6 +94,16 @@ export function printJs(varibleName) {
     return functionText;
 
 }
+
+export function printVaribleJs(varibleName) {
+    // Your function implementation
+    const functionText = `
+       console.log(${varibleName});
+    `;
+    return functionText;
+
+}
+
 
 export function createForLoopJs(condition) {
     const comparisonOperators = ['<', '>', '<=', '>='];
