@@ -227,7 +227,7 @@ function Editor(props) {
 
     const applyGeneratedCode = () => {
         if (keywords) {
-
+            //komada
             const currentCursor = myCodeMirror.getCursor();
             const currentCode = myCodeMirror.getValue();
 
