@@ -225,6 +225,8 @@ function Editor(props) {
         setCodeValue(editor.getValue()); // Update the codeValue state
     };
 
+    //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
     const applyGeneratedCode = () => {
         if (keywords) {
 
@@ -248,7 +250,7 @@ function Editor(props) {
             setKeywords('');
 
 
-            //fghjkkkkkkkkkkkkkkertbkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
+            
         }
     };
 
