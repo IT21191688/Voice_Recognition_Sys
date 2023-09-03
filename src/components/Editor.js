@@ -195,6 +195,8 @@ function Editor(props) {
         setResult('');
     }, []);
 
+    //not happy
+
     const rejectCode = () => {
         setTextToCopy('');
         setKeywords('');
