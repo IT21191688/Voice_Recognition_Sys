@@ -246,6 +246,7 @@ function Editor(props) {
             const newCursor = { line: currentCursor.line + keywords.split('\n').length - 1, ch: keywords.length };
             myCodeMirror.setCursor(newCursor); // Set the cursor position
             setKeywords('');
+            //////////////////////////////////////////////////////////////////////////////////////////
         }
     };
 
