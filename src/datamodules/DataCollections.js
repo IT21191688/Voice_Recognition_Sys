@@ -135,6 +135,23 @@ export function createIfElseJs(condition) {
     return functionText;
 }
 
+//star pattern
+export function createStarPattern(rows) {
+    
+    const functionText =`
+    let code = '';
+        for (let i=1; i <= ${rows}; i++){
+            for (let j = 1; j <= i; j++){
+                code += '*';
+            }
+            code += "\\n";
+        }
+        console.log(code);
+    `
+    return functionText;
+}
+
+
 //java
 
 
@@ -193,4 +210,3 @@ export function executeCode() {
     CodeMirrorEditor.runCode()
 
 }
-

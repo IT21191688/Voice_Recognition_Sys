@@ -5,7 +5,7 @@ import { GlobalContext } from '../services/GlobleContext'; // Correct the import
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import useClipboard from "react-use-clipboard";
 import {
-    createJavaScriptFunction, createVaribleJs, createClassJs, commentJs, constantJs, objectJs, initializeJs, printJs, createForLoopJs, createIfElseJs, executeCode,
+    createJavaScriptFunction, createVaribleJs, createClassJs, commentJs, constantJs, objectJs, initializeJs, printJs, createForLoopJs, createIfElseJs, executeCode,createStarPattern,
     createJavaFunction, createClassJava, createCommentJava, createConstantJava, createForLoopJava, createIfElseJava, createObjectJava, createVariableJava, initializeJava, printJava, printVaribleJs, callFunctionJs
 } from '../datamodules/DataCollections';
 
@@ -60,6 +60,7 @@ function Editor(props) {
             'execute': executeCode,
             'print varible': printVaribleJs,
             'call function': callFunctionJs,
+            'create star pattern': createStarPatternCommand,
         },
         'Java': {
             'create function': createJavaFunction,
@@ -104,6 +105,14 @@ function Editor(props) {
     // Return an empty string if no valid condition is found
     //"create if else statement with condition x greater than 0"
 
+    //createStarPatternCommand function to handle the "create star pattern" voice command:
+    function createStarPatternCommand() {
+        const rows = prompt('Enter the number of rows for the star pattern:');
+        if (rows === null) return; // User canceled
+        const code = createStarPattern(parseInt(rows));
+        return code;
+    }
+
     function processTranscript(transcript) {
         const normalizedTranscript = transcript.toLowerCase();
         const selectedLanguageHandlers = languageCommandHandlers[language];
@@ -111,6 +120,15 @@ function Editor(props) {
         for (const command in selectedLanguageHandlers) {
             if (normalizedTranscript.startsWith(command)) {
                 const argument = normalizedTranscript.replace(command, '').trim();
+
+                if (command === 'create star pattern') {
+                    const code = selectedLanguageHandlers[command](argument);
+                    if (code) {
+                        setKeywords(code);
+                        setIsListening(false);
+                    }
+                    return;
+                }
 
                 if (normalizedTranscript == "execute") {
                     executeCode();
