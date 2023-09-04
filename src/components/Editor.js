@@ -5,7 +5,7 @@ import { GlobalContext } from '../services/GlobleContext'; // Correct the import
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import useClipboard from "react-use-clipboard";
 import {
-    createJavaScriptFunction, createVaribleJs, createClassJs, commentJs, constantJs, objectJs, initializeJs, printJs, createForLoopJs, createIfElseJs, executeCode,createStarPattern,
+    createJavaScriptFunction, createVaribleJs, createClassJs, commentJs, constantJs, objectJs, initializeJs, printJs, createForLoopJs, createIfElseJs, executeCode,createTreeStarPattern,createSquareStarPattern,
     createJavaFunction, createClassJava, createCommentJava, createConstantJava, createForLoopJava, createIfElseJava, createObjectJava, createVariableJava, initializeJava, printJava, printVaribleJs, callFunctionJs
 } from '../datamodules/DataCollections';
 
@@ -73,7 +73,8 @@ function Editor(props) {
             'execute': executeCode,
             'print varible': printVaribleJs,
             'call function': callFunctionJs,
-            'create star pattern': createStarPatternCommand,
+            'create tree star pattern': createStarPatternCommand,
+            'create square star pattern': createStarPatternCommand,
         },
         'Java': {
             'create function': createJavaFunction,
@@ -120,10 +121,25 @@ function Editor(props) {
 
     //createStarPatternCommand function to handle the "create star pattern" voice command:
     function createStarPatternCommand() {
-        const rows = prompt('Enter the number of rows for the star pattern:');
+
+        const patternType = prompt('Enter "tree" or "square" to choose the pattern type:');
+    if (patternType === null) return; // User canceled
+
+    if (patternType.toLowerCase() === 'tree') {
+        const rows = prompt('Enter the number of rows for the tree pattern:');
         if (rows === null) return; // User canceled
-        const code = createStarPattern(parseInt(rows));
+        const code = createTreeStarPattern(parseInt(rows));
         return code;
+    } else if (patternType.toLowerCase() === 'square') {
+        const rows = prompt('Enter the number of rows for the square pattern:');
+        if (rows === null) return; // User canceled
+        const code = createSquareStarPattern(parseInt(rows));
+        return code;
+    } else {
+        alert('Invalid pattern type. Please enter "tree" or "square".');
+        return null;
+    }
+
     }
 
     function processTranscript(transcript) {
@@ -134,7 +150,14 @@ function Editor(props) {
             if (normalizedTranscript.startsWith(command)) {
                 const argument = normalizedTranscript.replace(command, '').trim();
 
-                if (command === 'create star pattern') {
+                if (command === 'create tree star pattern') {
+                    const code = selectedLanguageHandlers[command](argument);
+                    if (code) {
+                        setKeywords(code);
+                        setIsListening(false);
+                    }
+                    return;
+                }else if(command === 'create square star pattern'){
                     const code = selectedLanguageHandlers[command](argument);
                     if (code) {
                         setKeywords(code);
