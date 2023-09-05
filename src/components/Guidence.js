@@ -3,6 +3,8 @@ import Style from '../styles/EditorStyle.module.css'
 
 export default function Guidence() {
 
+    //guidence complete
+
     const [currentPage, setCurrentPage] = useState(0);
     const totalPages = 4; // Number of pages in the guide
 
