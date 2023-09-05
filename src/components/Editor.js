@@ -5,7 +5,7 @@ import { GlobalContext } from '../services/GlobleContext'; // Correct the import
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import useClipboard from "react-use-clipboard";
 import {
-    createJavaScriptFunction, createVaribleJs, createClassJs, commentJs, constantJs, objectJs, initializeJs, printJs, createForLoopJs, createIfElseJs, executeCode,createTreeStarPattern,createSquareStarPattern,
+    createJavaScriptFunction, createVaribleJs, createClassJs, commentJs, constantJs, objectJs, initializeJs, printJs, createForLoopJs, createIfElseJs, executeCode,createTreeStarPattern,createSquareStarPattern,createHollowSquareStarPattern,
     createJavaFunction, createClassJava, createCommentJava, createConstantJava, createForLoopJava, createIfElseJava, createObjectJava, createVariableJava, initializeJava, printJava, printVaribleJs, callFunctionJs
 } from '../datamodules/DataCollections';
 
@@ -73,8 +73,9 @@ function Editor(props) {
             'execute': executeCode,
             'print varible': printVaribleJs,
             'call function': callFunctionJs,
-            'create tree star pattern': createStarPatternCommand,
+            'create star pattern': createStarPatternCommand,
             'create square star pattern': createStarPatternCommand,
+
         },
         'Java': {
             'create function': createJavaFunction,
@@ -122,7 +123,7 @@ function Editor(props) {
     //createStarPatternCommand function to handle the "create star pattern" voice command:
     function createStarPatternCommand() {
 
-        const patternType = prompt('Enter "tree" or "square" to choose the pattern type:');
+        const patternType = prompt('Enter "tree" or "square" or "hollowsquare" to choose the pattern type:');
     if (patternType === null) return; // User canceled
 
     if (patternType.toLowerCase() === 'tree') {
@@ -135,8 +136,13 @@ function Editor(props) {
         if (rows === null) return; // User canceled
         const code = createSquareStarPattern(parseInt(rows));
         return code;
-    } else {
-        alert('Invalid pattern type. Please enter "tree" or "square".');
+    }else if (patternType.toLowerCase() === 'hollowsquare') {
+        const rows = prompt('Enter the number of rows for the hollow square pattern:');
+        if (rows === null) return; // User canceled
+        const code = createHollowSquareStarPattern(parseInt(rows));
+        return code; 
+    }else {
+        alert('Invalid pattern type. Please enter "tree" or "square" or "hollowsquare".');
         return null;
     }
 
@@ -150,14 +156,7 @@ function Editor(props) {
             if (normalizedTranscript.startsWith(command)) {
                 const argument = normalizedTranscript.replace(command, '').trim();
 
-                if (command === 'create tree star pattern') {
-                    const code = selectedLanguageHandlers[command](argument);
-                    if (code) {
-                        setKeywords(code);
-                        setIsListening(false);
-                    }
-                    return;
-                }else if(command === 'create square star pattern'){
+                if (command === 'create star pattern') {
                     const code = selectedLanguageHandlers[command](argument);
                     if (code) {
                         setKeywords(code);
@@ -344,6 +343,7 @@ function Editor(props) {
                     <ul className={`mb-5 ${Style['voice-guide-list']}`} >
                         <li><strong>"create loop with condition i less than 10"::</strong>Generates a for loop with the specified condition.</li>
                         <li><strong>"create if else statement with condition x greater than 5":</strong> Generates an if-else statement with the specified condition.</li>
+                        <li><strong>"create star pattern"::</strong>Generates star pattern using the specified condition.</li>
                         <li><strong>"print variableName":</strong>Generates a console log statement to print the specified variable.</li>
                         <li><strong>"create constant":</strong>Generates a constant declaration.</li>
                         <li><strong>"create object with attributes name and age":</strong>Generates an object declaration with attributes.</li>

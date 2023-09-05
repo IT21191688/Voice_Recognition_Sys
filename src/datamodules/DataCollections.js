@@ -175,6 +175,36 @@ export function createSquareStarPattern(rows) {
     return functionText;
 }
 
+//hollow square star pattern
+export function createHollowSquareStarPattern(rows) {
+    
+    const functionText =`
+    let code = '';
+        //hollowsquare
+        const testStr3 = "hollow square star pattern!!";\n
+        console.log(testStr3);
+        for(let i = 0; i < ${rows}; i++) { // external loop
+            for(let j = 0; j < ${rows}; j++) { // internal loop
+              if(i === 0 || i === ${rows} - 1) {
+                code += "*";
+              }
+              else {
+                if(j === 0 || j === ${rows} - 1) {
+                  code += "*";
+                }
+                else {
+                  code += " ";
+                }
+              }
+            }
+            code += "\\n";
+        }
+        console.log(code);
+    `
+    
+    return functionText;
+}
+
 
 
 
