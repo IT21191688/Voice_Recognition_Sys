@@ -16,6 +16,7 @@ import 'codemirror/addon/selection/active-line.js';
 import 'codemirror/mode/javascript/javascript.js';
 
 import Style from '../styles/EditorStyle.module.css'
+import Guidence from './Guidence';
 
 let myCodeMirror = null;
 
@@ -42,21 +43,7 @@ function Editor(props) {
     const [codeEditor, setCodeEditor] = useState(false);
 
 
-    const [currentPage, setCurrentPage] = useState(0);
-    const totalPages = 4; // Number of pages in the guide
 
-    const nextPage = () => {
-        if (currentPage < totalPages - 1) {
-            // alert(currentPage)
-            setCurrentPage(currentPage + 1);
-        }
-    };
-
-    const prevPage = () => {
-        if (currentPage > 0) {
-            setCurrentPage(currentPage - 1);
-        }
-    };
 
     const languageCommandHandlers = {
         'Javascript': {
@@ -343,7 +330,6 @@ function Editor(props) {
                     <ul className={`mb-5 ${Style['voice-guide-list']}`} >
                         <li><strong>"create loop with condition i less than 10"::</strong>Generates a for loop with the specified condition.</li>
                         <li><strong>"create if else statement with condition x greater than 5":</strong> Generates an if-else statement with the specified condition.</li>
-                        <li><strong>"create star pattern"::</strong>Generates star pattern using the specified condition.</li>
                         <li><strong>"print variableName":</strong>Generates a console log statement to print the specified variable.</li>
                         <li><strong>"create constant":</strong>Generates a constant declaration.</li>
                         <li><strong>"create object with attributes name and age":</strong>Generates an object declaration with attributes.</li>
