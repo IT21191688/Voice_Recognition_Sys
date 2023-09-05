@@ -5,7 +5,7 @@ import { GlobalContext } from '../services/GlobleContext'; // Correct the import
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import useClipboard from "react-use-clipboard";
 import {
-    createJavaScriptFunction, createVaribleJs, createClassJs, commentJs, constantJs, objectJs, initializeJs, printJs, createForLoopJs, createIfElseJs, executeCode,createStarPattern,
+    createJavaScriptFunction, createVaribleJs, createClassJs, commentJs, constantJs, objectJs, initializeJs, printJs, createForLoopJs, createIfElseJs, executeCode,createTreeStarPattern,createSquareStarPattern,createHollowSquareStarPattern,
     createJavaFunction, createClassJava, createCommentJava, createConstantJava, createForLoopJava, createIfElseJava, createObjectJava, createVariableJava, initializeJava, printJava, printVaribleJs, callFunctionJs
 } from '../datamodules/DataCollections';
 
@@ -61,6 +61,8 @@ function Editor(props) {
             'print varible': printVaribleJs,
             'call function': callFunctionJs,
             'create star pattern': createStarPatternCommand,
+            'create square star pattern': createStarPatternCommand,
+
         },
         'Java': {
             'create function': createJavaFunction,
@@ -107,10 +109,30 @@ function Editor(props) {
 
     //createStarPatternCommand function to handle the "create star pattern" voice command:
     function createStarPatternCommand() {
-        const rows = prompt('Enter the number of rows for the star pattern:');
+
+        const patternType = prompt('Enter "tree" or "square" or "hollowsquare" to choose the pattern type:');
+    if (patternType === null) return; // User canceled
+
+    if (patternType.toLowerCase() === 'tree') {
+        const rows = prompt('Enter the number of rows for the tree pattern:');
         if (rows === null) return; // User canceled
-        const code = createStarPattern(parseInt(rows));
+        const code = createTreeStarPattern(parseInt(rows));
         return code;
+    } else if (patternType.toLowerCase() === 'square') {
+        const rows = prompt('Enter the number of rows for the square pattern:');
+        if (rows === null) return; // User canceled
+        const code = createSquareStarPattern(parseInt(rows));
+        return code;
+    }else if (patternType.toLowerCase() === 'hollowsquare') {
+        const rows = prompt('Enter the number of rows for the hollow square pattern:');
+        if (rows === null) return; // User canceled
+        const code = createHollowSquareStarPattern(parseInt(rows));
+        return code; 
+    }else {
+        alert('Invalid pattern type. Please enter "tree" or "square" or "hollowsquare".');
+        return null;
+    }
+
     }
 
     function processTranscript(transcript) {
@@ -265,9 +287,6 @@ function Editor(props) {
 
     return (
         <div className='row mt-5'>
-
-
-            <Guidence />
 
             <div className="container col-md-6" style={{ paddingRight: '5px' }}>
                 <div className={`${Style.codeeditorwrapper}`}>

@@ -135,11 +135,14 @@ export function createIfElseJs(condition) {
     return functionText;
 }
 
-//star pattern
-export function createStarPattern(rows) {
+//tree star pattern
+export function createTreeStarPattern(rows) {
     
     const functionText =`
     let code = '';
+    //tree 
+    const testStr1 = "tree star pattern!!";\n
+    console.log(testStr1);
         for (let i=1; i <= ${rows}; i++){
             for (let j = 1; j <= i; j++){
                 code += '*';
@@ -148,8 +151,62 @@ export function createStarPattern(rows) {
         }
         console.log(code);
     `
+    
     return functionText;
 }
+
+//square star pattern
+export function createSquareStarPattern(rows) {
+    
+    const functionText =`
+    let code = '';
+        //square
+        const testStr2 = "square star pattern!!";\n
+        console.log(testStr2);
+        for (let i=1; i <= ${rows}; i++){
+            for (let j = 1; j <= ${rows}; j++){
+                code += '*';
+            }
+            code += "\\n";
+        }
+        console.log(code);
+    `
+    
+    return functionText;
+}
+
+//hollow square star pattern
+export function createHollowSquareStarPattern(rows) {
+    
+    const functionText =`
+    let code = '';
+        //hollowsquare
+        const testStr3 = "hollow square star pattern!!";\n
+        console.log(testStr3);
+        for(let i = 0; i < ${rows}; i++) { // external loop
+            for(let j = 0; j < ${rows}; j++) { // internal loop
+              if(i === 0 || i === ${rows} - 1) {
+                code += "*";
+              }
+              else {
+                if(j === 0 || j === ${rows} - 1) {
+                  code += "*";
+                }
+                else {
+                  code += " ";
+                }
+              }
+            }
+            code += "\\n";
+        }
+        console.log(code);
+    `
+    
+    return functionText;
+}
+
+
+
 
 
 //java
