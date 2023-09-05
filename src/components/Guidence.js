@@ -19,6 +19,7 @@ export default function Guidence() {
         }
     };
     return (
+        
 
         <div className={`container col-md-3 ${Style['voice-guide-container']}`} style={{ textAlign: 'left', height: '600px' }}>
             <h2 className={`mb-4 ${Style['voice-guide-heading']}`}>Voice Command Guide</h2>
@@ -61,6 +62,7 @@ export default function Guidence() {
                 <ul className={`mb-5 ${Style['voice-guide-list']}`} >
                     <li><strong>"create loop with condition i less than 10"::</strong>Generates a for loop with the specified condition.</li>
                     <li><strong>"create if else statement with condition x greater than 5":</strong> Generates an if-else statement with the specified condition.</li>
+                    <li><strong>"create star pattern"::</strong>Generates star patter using the specified condition.</li>
                     <li><strong>"print variableName":</strong>Generates a console log statement to print the specified variable.</li>
                     <li><strong>"create constant":</strong>Generates a constant declaration.</li>
                     <li><strong>"create object with attributes name and age":</strong>Generates an object declaration with attributes.</li>
