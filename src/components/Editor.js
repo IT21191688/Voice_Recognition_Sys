@@ -286,7 +286,9 @@ function Editor(props) {
 
 
     return (
+
         <div className='row mt-5'>
+            <Guidence/>
 
             <div className="container col-md-6" style={{ paddingRight: '5px' }}>
                 <div className={`${Style.codeeditorwrapper}`}>
