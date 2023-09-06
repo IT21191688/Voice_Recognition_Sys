@@ -205,6 +205,17 @@ export function createHollowSquareStarPattern(rows) {
     return functionText;
 }
 
+//summation
+export function summation(num1, num2) {
+    const functionText =`
+    const result = num1 + num2;
+    console.log('Summation:', result);
+     
+`
+return functionText;
+  }
+  
+
 
 
 
