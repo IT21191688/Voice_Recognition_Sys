@@ -3,8 +3,6 @@ import Style from '../styles/EditorStyle.module.css'
 
 export default function Guidence() {
 
-    //guidence complete
-
     const [currentPage, setCurrentPage] = useState(0);
     const totalPages = 4; // Number of pages in the guide
 
@@ -21,9 +19,7 @@ export default function Guidence() {
         }
     };
     return (
-        
-
-        <div className={`container col-md-3 ${Style['voice-guide-container']}`} style={{ textAlign: 'left', height: '600px' }}>
+        <div className={`container col-md-3 ${Style['voice-guide-container']}`} style={{ textAlign: 'left', height: '600px', overflow: 'hidden', marginLeft:'50px'}}>
             <h2 className={`mb-4 ${Style['voice-guide-heading']}`}>Voice Command Guide</h2>
             <div className={`${Style['voice-guide-page']} ${currentPage === 0 ? 'd-block' : 'd-none'}`} >
                 <p className={Style['voice-guide-text']}>Follow these steps to use the voice command interface:</p>
@@ -90,11 +86,12 @@ export default function Guidence() {
                 {/* ... Other content for Page 3 */}
             </div>
             <div className="text-center">
-                <button className="btn btn-primary me-2 w-10" onClick={prevPage}>Previous</button>
-                <button className="btn btn-primary w-10" onClick={nextPage}>Next</button>
+                <button className="btn me-2 w-10" onClick={prevPage} style={{borderRadius: "28px", background:"linear-gradient(45deg, #010758, #490d61)",color:'white' }} >Previous</button>
+                <button className="btn w-10" onClick={nextPage} style={{borderRadius: "28px",padding: "6px 22px", background:"linear-gradient(45deg, #010758, #490d61)",color:'white' }}>Next</button>
             </div>
 
         </div>
+
     );
 }
 

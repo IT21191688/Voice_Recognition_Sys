@@ -4,8 +4,9 @@ import CodeMirrorEditor from '../services/CodeMirrorEditor';
 import { GlobalContext } from '../services/GlobleContext'; // Correct the import path
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import useClipboard from "react-use-clipboard";
+import 'font-awesome/css/font-awesome.min.css';
 import {
-    createJavaScriptFunction, createVaribleJs, createClassJs, commentJs, constantJs, objectJs, initializeJs, printJs, createForLoopJs, createIfElseJs, executeCode,createTreeStarPattern,createSquareStarPattern,createHollowSquareStarPattern,
+    createJavaScriptFunction, createVaribleJs, createClassJs, commentJs, constantJs, objectJs, initializeJs, printJs, createForLoopJs, createIfElseJs, executeCode,createTreeStarPattern,createSquareStarPattern,createHollowSquareStarPattern,summation,
     createJavaFunction, createClassJava, createCommentJava, createConstantJava, createForLoopJava, createIfElseJava, createObjectJava, createVariableJava, initializeJava, printJava, printVaribleJs, callFunctionJs
 } from '../datamodules/DataCollections';
 
@@ -62,6 +63,7 @@ function Editor(props) {
             'call function': callFunctionJs,
             'create star pattern': createStarPatternCommand,
             'create square star pattern': createStarPatternCommand,
+            'summation':createsummation,
 
         },
         'Java': {
@@ -109,7 +111,6 @@ function Editor(props) {
 
     //createStarPatternCommand function to handle the "create star pattern" voice command:
     function createStarPatternCommand() {
-
         const patternType = prompt('Enter "tree" or "square" or "hollowsquare" to choose the pattern type:');
     if (patternType === null) return; // User canceled
 
@@ -135,6 +136,36 @@ function Editor(props) {
 
     }
 
+    function createsummation() {
+        
+        const input = prompt('Enter two numbers separated by a space:');
+      
+        // Split the input into an array using a space as the delimiter
+        const inputArray = input.split(' ');
+      
+        // Check if there are exactly two elements in the array
+        if (inputArray.length === 2) {
+          const num1 = parseInt(inputArray[0]);
+          const num2 = parseInt(inputArray[1]);
+      
+          if (!isNaN(num1) && !isNaN(num2)) {
+            // Both inputs are valid integers
+            console.log('First number:', num1);
+            console.log('Second number:', num2);
+      
+            // Perform summation
+            const result = num1 + num2;
+            return result; // Return the result
+          } else {
+            console.log('Invalid input. Please enter two valid numbers separated by a space.');
+          }
+        } else {
+          console.log('Invalid input format. Please enter two numbers separated by a space.');
+        }
+        
+      }
+      
+
     function processTranscript(transcript) {
         const normalizedTranscript = transcript.toLowerCase();
         const selectedLanguageHandlers = languageCommandHandlers[language];
@@ -147,6 +178,15 @@ function Editor(props) {
                     const code = selectedLanguageHandlers[command](argument);
                     if (code) {
                         setKeywords(code);
+                        setIsListening(false);
+                    }
+                    return;
+                }
+
+                if (command === 'summation') {
+                    const result = selectedLanguageHandlers[command](argument);
+                    if (result) {
+                        setKeywords(result);
                         setIsListening(false);
                     }
                     return;
@@ -287,7 +327,7 @@ function Editor(props) {
 
     return (
 
-        <div className='row mt-5'>
+        <div className='row mt-5' style={{overflow: 'hidden'}}>
             <Guidence/>
 
             <div className="container col-md-6" style={{ paddingRight: '5px' }}>
@@ -319,7 +359,7 @@ function Editor(props) {
                 </div>
             </div>
 
-            <div className="container col-md-3" style={{ width: '20%', float: 'right', paddingRight: '5px' }}>
+            <div className="container col-md-3" style={{ width: '20%', float: 'right', paddingRight: '5px'}}>
                 <div className="dropdown mb-3">
                     <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         Select Language: {language}
@@ -345,10 +385,10 @@ function Editor(props) {
                 </div>
 
                 <div className="mb-3">
-                    <button className="btn btn-primary me-2" onClick={applyGeneratedCode}>
+                    <button className="btn  me-2" onClick={applyGeneratedCode} style={{borderRadius: "28px", background:"#99004d",color:'white'}}>
                         Apply Code
                     </button>
-                    <button className="btn btn-secondary" onClick={rejectCode}>
+                    <button className="btn " onClick={rejectCode} style={{borderRadius: "28px",background:"#c2c2a3",padding: "6px 22px",color:'white'}}>
                         Clear
                     </button>
                 </div>
@@ -356,14 +396,14 @@ function Editor(props) {
                 <div className="btn-style">
                     <button
                         className={`btn ${isCopied ? 'btn-success' : 'btn-primary'} me-2`}
-                        onClick={setCodeEditor}
+                        onClick={setCodeEditor}style={{borderRadius: "28px", background:"linear-gradient(45deg, #770368, #190122)#99004d",color:'white' }}
                     >
                         {isCopied ? 'Copied!' : 'Copy to Clipboard'}
                     </button>
 
                     <button
                         className={`btn ${isListening ? 'btn-danger' : 'btn-success'}`}
-                        onClick={isListening ? stopListening : startListening}
+                        onClick={isListening ? stopListening : startListening}style={{borderRadius: "28px",color:'white'}}
                     >
                         {isListening ? 'Stop Listening' : 'Start Listening'}
                     </button>
