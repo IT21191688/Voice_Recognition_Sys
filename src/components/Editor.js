@@ -6,7 +6,7 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 import useClipboard from "react-use-clipboard";
 import 'font-awesome/css/font-awesome.min.css';
 import {
-    createJavaScriptFunction, createVaribleJs, createClassJs, commentJs, constantJs, objectJs, initializeJs, printJs, createForLoopJs, createIfElseJs, executeCode,createTreeStarPattern,createSquareStarPattern,createHollowSquareStarPattern,summation,
+    createJavaScriptFunction, createVaribleJs, createClassJs, commentJs, constantJs, objectJs, initializeJs, printJs, createForLoopJs, createIfElseJs, executeCode,createTreeStarPattern,createSquareStarPattern,createHollowSquareStarPattern,summation,findtextSize,
     createJavaFunction, createClassJava, createCommentJava, createConstantJava, createForLoopJava, createIfElseJava, createObjectJava, createVariableJava, initializeJava, printJava, printVaribleJs, callFunctionJs
 } from '../datamodules/DataCollections';
 
@@ -64,6 +64,7 @@ function Editor(props) {
             'create star pattern': createStarPatternCommand,
             'create square star pattern': createStarPatternCommand,
             'summation':createsummation,
+            'find text size':findAndDisplayTextSize,
 
         },
         'Java': {
@@ -154,7 +155,7 @@ function Editor(props) {
             console.log('Second number:', num2);
       
             // Perform summation
-            const result = num1 + num2;
+            const result = summation(num1,num2);
             return result; // Return the result
           } else {
             console.log('Invalid input. Please enter two valid numbers separated by a space.');
@@ -164,6 +165,18 @@ function Editor(props) {
         }
         
       }
+
+      function findAndDisplayTextSize() {
+        const text = prompt('Enter the text:');
+        
+        // Ensure text is not empty or null before passing it to the findtextSize function
+        if (text !== null && text.trim() !== '') {
+            const size = findtextSize(text);
+            return size;
+        } else {
+            console.log('Invalid input. Please enter a non-empty text.');
+        }
+    }
       
 
     function processTranscript(transcript) {
@@ -191,6 +204,16 @@ function Editor(props) {
                     }
                     return;
                 }
+
+                if (command === 'find text size') {
+                    const text = selectedLanguageHandlers[command](argument);
+                    if (text) {
+                        setKeywords(text);
+                        setIsListening(false);
+                    }
+                    return;
+                }
+
 
                 if (normalizedTranscript == "execute") {
                     executeCode();

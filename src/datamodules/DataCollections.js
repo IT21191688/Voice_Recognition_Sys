@@ -208,12 +208,21 @@ export function createHollowSquareStarPattern(rows) {
 //summation
 export function summation(num1, num2) {
     const functionText =`
-    const result = num1 + num2;
+    const result = ${num1} + ${num2};
     console.log('Summation:', result);
      
 `
-return functionText;
-  }
+    return functionText;
+}
+
+//string text size
+export function findtextSize(text){
+    const functionText=`
+    text = '';
+    let size = ${text}.length;
+    console.log('Text size:', size);`
+    return functionText;
+}
   
 
 
